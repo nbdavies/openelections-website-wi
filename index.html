@@ -14,11 +14,44 @@
     <div class="container">
       <!-- Content here -->
       <div class="row">
-        <h1>OpenElections Wisconsin</h1>
+        <h1>
+          OpenElections Wisconsin
+        </h1>
+        <a href="https://github.com/openelections/openelections-data-wi">View on GitHub</a>
       </div>
       <div class="row">
         <div id="app">
-          {{ metadata }}
+          <div class="accordion" id="election-list">
+            <div class="card" v-for="election in elections" v-bind:key="election.id">
+              <div class="card-header">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#election-' + election.id">
+                    {{ election.start_date }} {{ election.special ? 'special ' : '' }}{{ election.race_type }}
+                  </button>
+                </h2>
+              </div>
+              <div class="collapse" v-bind:id="'election-' + election.id" data-parent="#election-list">
+                <div class="card-body">
+                  <p>
+                    <small>
+                      <a v-bind:href="election.portal_link">View on {{ election.organizationName }}</a>
+                    </small>
+                  </p>
+                  <strong>Source files:</strong>
+                  <ul>
+                    <li v-for="direct_link in election.direct_links">
+                      <a v-bind:href="direct_link">{{ direct_link}}</a>
+                    </li>
+                  </ul>
+                  <strong>Converted file:</strong>
+                  <a download='something.csv' v-bind:href="election.fullPath()">
+                    {{ election.fileName() }}
+                  </a>
+                  <!-- {{ election }} -->
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -34,6 +67,7 @@
     
     <!-- production version, optimized for size and speed -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="election.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
