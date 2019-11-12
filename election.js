@@ -21,4 +21,7 @@ class Election {
     var path = repoPath + this.year() + '/'
     return path + this.fileName()
   }
+  download() {
+    browser.downloads.download({ url: this.fullPath() })
+  }
 }

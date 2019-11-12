@@ -43,9 +43,8 @@
                       <a v-bind:href="direct_link">{{ direct_link}}</a>
                     </li>
                   </ul>
-                  <strong>Converted file:</strong>
-                  <a download='something.csv' v-bind:href="election.fullPath()">
-                    {{ election.fileName() }}
+                  <a class="btn btn-bd-download btn-primary" v-bind:href="election.fullPath()" download>
+                    Converted CSV
                   </a>
                   <!-- {{ election }} -->
                 </div>
