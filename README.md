@@ -9,5 +9,6 @@ The current approach, [deployed on my personal site](http://www.ndavies.org/open
 ## Next steps
 
 * Clicking on a link to a raw CSV file hosted on Github should initiate a download. But without any control over what Content-Disposition header Github includes in the response, the CSV file displays in-browser. Downloading the browser tab's contents changes the file extension to txt by default. Yuck! There's got to be a better way.
-* Turn the collapsed list of elections into a table.
-* Make that table sortable and/or filterable.
+* Turn the collapsed list of elections into a table, with columns for date, election type, special.
+* Add options to sort/filter by year, month, election type.
+* Post this mock-up to the openelections.github.io issue discussion.
