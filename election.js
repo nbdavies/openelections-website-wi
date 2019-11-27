@@ -21,7 +21,21 @@ class Election {
     var path = repoPath + this.year() + '/'
     return path + this.fileName()
   }
-  download() {
-    browser.downloads.download({ url: this.fullPath() })
+  download(event) {
+    event.preventDefault()
+    var clickedLink = event.target
+    var blobLink = $(clickedLink).closest('.election').find('.blob-ingester')[0]
+    $(clickedLink).find('.i-download').addClass('d-none')
+    $(clickedLink).find('.spinner-border').removeClass('d-none')
+    // Change link text to a spinner
+    $.get(this.fullPath(), function(response){
+      var csv_contents = response
+      var blobUrl = window.URL.createObjectURL(new Blob([csv_contents]), { type: "text/plain" })
+      blobLink.href = blobUrl
+      blobLink.click()
+      $(clickedLink).find('.i-download').removeClass('d-none')
+      $(clickedLink).find('.spinner-border').addClass('d-none')
+      // Set the target link's URL back to original value
+    }.bind(this))
   }
 }
