@@ -8,9 +8,7 @@ The current approach, [deployed on my personal site](http://www.ndavies.org/open
 
 ## Next steps
 
-* Turn the collapsed list of elections into a table, with columns for date, election type, special.
-* Add options to sort/filter by year, month, election type.
-* Display and/or filter by offices in the election (focus on prez, senate, house, gov).
+* Enable filters by year, month, election type, special, and common offices.
 * Post this mock-up to the openelections.github.io issue discussion.
 * Don't show download links for elections that don't have converted CSVs (eg. PDF source files).
 * Add download links to results repo and differentiate them somehow.
