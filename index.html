@@ -11,7 +11,7 @@
     <title>OpenElections Wisconsin</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="app">
       <!-- Content here -->
       <div class="row">
         <h1>
@@ -20,18 +20,106 @@
         <a href="https://github.com/openelections/openelections-data-wi">View on GitHub</a>
       </div>
       <div class="row">
-        <div id="app">
-          <div class="accordion" id="election-list">
-            <div class="card election" v-for="election in elections" v-bind:key="election.id">
-              <div class="card-header">
-                <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#election-' + election.id">
-                    {{ election.start_date }} {{ election.special ? 'special ' : '' }}{{ election.race_type }}
+        <table class="table col-md-12" id="election-list">
+          <thead>
+            <tr>
+              <!-- Checkbox? -->
+              <th>
+                <div class='dropdown d-inline'>
+                  <button type="button" class='btn btn-primary dropdown-toggle' id="yearDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Year
                   </button>
-                </h2>
-              </div>
-              <div class="collapse" v-bind:id="'election-' + election.id" data-parent="#election-list">
-                <div class="card-body">
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">2019</a>
+                    <a class="dropdown-item" href="#">2018</a>
+                    <a class="dropdown-item" href="#">2017</a>
+                    <a class="dropdown-item" href="#">2016</a>
+                    <a class="dropdown-item" href="#">2015</a>
+                    <a class="dropdown-item" href="#">2014</a>
+                    <a class="dropdown-item" href="#">2013</a>
+                    <a class="dropdown-item" href="#">2012</a>
+                    <a class="dropdown-item" href="#">2011</a>
+                    <a class="dropdown-item" href="#">2010</a>
+                    <a class="dropdown-item" href="#">2009</a>
+                    <a class="dropdown-item" href="#">2008</a>
+                    <a class="dropdown-item" href="#">2007</a>
+                    <a class="dropdown-item" href="#">2006</a>
+                    <a class="dropdown-item" href="#">2005</a>
+                    <a class="dropdown-item" href="#">2004</a>
+                    <a class="dropdown-item" href="#">2003</a>
+                    <a class="dropdown-item" href="#">2002</a>
+                    <a class="dropdown-item" href="#">2001</a>
+                    <a class="dropdown-item" href="#">2000</a>
+                  </div>
+                </div>
+                <div class='dropdown d-inline'>
+                  <button type="button" class='btn btn-primary dropdown-toggle' id="monthDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Month
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">January</a>
+                    <a class="dropdown-item" href="#">February</a>
+                    <a class="dropdown-item" href="#">April</a>
+                    <a class="dropdown-item" href="#">May</a>
+                    <a class="dropdown-item" href="#">June</a>
+                    <a class="dropdown-item" href="#">July</a>
+                    <a class="dropdown-item" href="#">August</a>
+                    <a class="dropdown-item" href="#">September</a>
+                    <a class="dropdown-item" href="#">October</a>
+                    <a class="dropdown-item" href="#">November</a>
+                    <a class="dropdown-item" href="#">December</a>
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class='dropdown d-inline'>
+                  <button type="button" class='btn btn-primary dropdown-toggle' id="typeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Election Type
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">General</a>
+                    <a class="dropdown-item" href="#">Primary</a>
+                    <a class="dropdown-item" href="#">General Recall</a>
+                    <a class="dropdown-item" href="#">Primary Recall</a>
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class='dropdown d-inline'>
+                  <button type="button" class='btn btn-primary dropdown-toggle' id="specialDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Special?
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">true</a>
+                    <a class="dropdown-item" href="#">false</a>
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class='dropdown d-inline'>
+                  <button type="button" class='btn btn-primary dropdown-toggle' id="officeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Offices
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">President</a>
+                    <a class="dropdown-item" href="#">US Senate</a>
+                    <a class="dropdown-item" href="#">US House</a>
+                    <a class="dropdown-item" href="#">Governor</a>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody v-for="election in shownElections" v-bind:key="election.id">
+            <tr data-toggle="collapse" v-bind:data-target="'#election-' + election.id">
+              <td>{{ election.start_date }}</td>
+              <td>{{ election.race_type }}</td>
+              <td>{{ election.special }}</td>
+              <td>{{ election.offices() }}</td>
+            </tr>
+            <tr>
+              <td colspan=4 class="p-0">
+                <div class="card-body collapse" v-bind:id="'election-' + election.id" data-parent="#election-list" aria-expanded="false">
                   <p>
                     <small>
                       <a v-bind:href="election.portal_link">View on {{ election.organizationName }}</a>
@@ -55,10 +143,10 @@
                   </a>
                   <a class="d-none blob-ingester" href="#" v-bind:download="election.fileName()"></a>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 

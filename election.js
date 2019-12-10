@@ -7,6 +7,18 @@ class Election {
     this.special = json.special
     this.organizationName = json.organization.name
     this.id = json.id
+    this.gov = json.gov // presence of certain offices...
+    this.house = json.house
+    this.prez = json.prez
+    this.senate = json.senate
+  }
+  offices() {
+    var officeList = []
+    if (this.prez) { officeList.push('President') }
+    if (this.senate) { officeList.push('US Senate') }
+    if (this.house) { officeList.push('US House') }
+    if (this.gov) { officeList.push('Governor') }
+    return officeList.join(', ')
   }
   year() {
     return this.start_date.substring(0, 4)

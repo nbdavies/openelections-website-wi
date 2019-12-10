@@ -2,7 +2,8 @@ $(function() {
   var app = new Vue({
     el: '#app',
     data: {
-      elections: []
+      elections: [],
+      shownElections: []
     },
     created: function () {
       var metadata_url = 'https://raw.githubusercontent.com/openelections/openelections-data-wi/master/local_data_cache/elections_metadata.json'
@@ -13,6 +14,7 @@ $(function() {
             return new Election(object)
           })
           app.elections = elections
+          app.shownElections = elections
         })
     }
   })
