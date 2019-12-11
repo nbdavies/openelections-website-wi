@@ -13,15 +13,35 @@ class Election {
     this.senate = json.senate
   }
   offices() {
+    return this.officeList().join(', ')
+  }
+  officeList() {
     var officeList = []
     if (this.prez) { officeList.push('President') }
-    if (this.senate) { officeList.push('US Senate') }
-    if (this.house) { officeList.push('US House') }
+    if (this.senate) { officeList.push('Senate') }
+    if (this.house) { officeList.push('House') }
     if (this.gov) { officeList.push('Governor') }
-    return officeList.join(', ')
+    return officeList
   }
   year() {
     return this.start_date.substring(0, 4)
+  }
+  month() {
+    var monthNum = this.start_date.substring(5, 7)
+    switch (monthNum) {
+      case '01': return 'January';
+      case '02': return 'February';
+      case '03': return 'March';
+      case '04': return 'April';
+      case '05': return 'May';
+      case '06': return 'June';
+      case '07': return 'July';
+      case '08': return 'August';
+      case '09': return 'September';
+      case '10': return 'October';
+      case '11': return 'November';
+      case '12': return 'December';
+    }
   }
   fileName() {
     var shortDate = this.start_date.replace(/-/g, '')

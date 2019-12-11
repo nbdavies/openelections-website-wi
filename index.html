@@ -30,26 +30,7 @@
                     Year
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">2019</a>
-                    <a class="dropdown-item" href="#">2018</a>
-                    <a class="dropdown-item" href="#">2017</a>
-                    <a class="dropdown-item" href="#">2016</a>
-                    <a class="dropdown-item" href="#">2015</a>
-                    <a class="dropdown-item" href="#">2014</a>
-                    <a class="dropdown-item" href="#">2013</a>
-                    <a class="dropdown-item" href="#">2012</a>
-                    <a class="dropdown-item" href="#">2011</a>
-                    <a class="dropdown-item" href="#">2010</a>
-                    <a class="dropdown-item" href="#">2009</a>
-                    <a class="dropdown-item" href="#">2008</a>
-                    <a class="dropdown-item" href="#">2007</a>
-                    <a class="dropdown-item" href="#">2006</a>
-                    <a class="dropdown-item" href="#">2005</a>
-                    <a class="dropdown-item" href="#">2004</a>
-                    <a class="dropdown-item" href="#">2003</a>
-                    <a class="dropdown-item" href="#">2002</a>
-                    <a class="dropdown-item" href="#">2001</a>
-                    <a class="dropdown-item" href="#">2000</a>
+                    <a v-for="year in years" v-bind:key="year" class="dropdown-item" v-bind:id="'years-'+year" href='#' v-on:click="toggleYear(year)">{{ year }}</a>
                   </div>
                 </div>
                 <div class='dropdown d-inline'>
@@ -57,17 +38,7 @@
                     Month
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">January</a>
-                    <a class="dropdown-item" href="#">February</a>
-                    <a class="dropdown-item" href="#">April</a>
-                    <a class="dropdown-item" href="#">May</a>
-                    <a class="dropdown-item" href="#">June</a>
-                    <a class="dropdown-item" href="#">July</a>
-                    <a class="dropdown-item" href="#">August</a>
-                    <a class="dropdown-item" href="#">September</a>
-                    <a class="dropdown-item" href="#">October</a>
-                    <a class="dropdown-item" href="#">November</a>
-                    <a class="dropdown-item" href="#">December</a>
+                    <a v-for="month in months" v-bind:key="month" class="dropdown-item" v-bind:id="'months-'+month" href='#' v-on:click="toggleMonth(month)">{{ month }}</a>
                   </div>
                 </div>
               </th>
@@ -77,10 +48,7 @@
                     Election Type
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">General</a>
-                    <a class="dropdown-item" href="#">Primary</a>
-                    <a class="dropdown-item" href="#">General Recall</a>
-                    <a class="dropdown-item" href="#">Primary Recall</a>
+                    <a v-for="type in types" v-bind:key="type" class="dropdown-item" v-bind:id="'types-'+type" href='#' v-on:click="toggleType(type)">{{ type }}</a>
                   </div>
                 </div>
               </th>
@@ -90,8 +58,7 @@
                     Special?
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">true</a>
-                    <a class="dropdown-item" href="#">false</a>
+                    <a v-for="boolean in special" v-bind:key="boolean" class="dropdown-item" v-bind:id="'special-'+boolean" href='#' v-on:click="toggleSpecial(boolean)">{{ boolean }}</a>
                   </div>
                 </div>
               </th>
@@ -101,10 +68,7 @@
                     Offices
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">President</a>
-                    <a class="dropdown-item" href="#">US Senate</a>
-                    <a class="dropdown-item" href="#">US House</a>
-                    <a class="dropdown-item" href="#">Governor</a>
+                    <a v-for="office in offices" v-bind:key="office" class="dropdown-item" v-bind:id="'offices-'+office" href='#' v-on:click="toggleOffice(office)">{{ office }}</a>
                   </div>
                 </div>
               </th>
@@ -119,7 +83,7 @@
             </tr>
             <tr>
               <td colspan=4 class="p-0">
-                <div class="card-body collapse" v-bind:id="'election-' + election.id" data-parent="#election-list" aria-expanded="false">
+                <div class="card-body collapse election" v-bind:id="'election-' + election.id" data-parent="#election-list" aria-expanded="false">
                   <p>
                     <small>
                       <a v-bind:href="election.portal_link">View on {{ election.organizationName }}</a>
