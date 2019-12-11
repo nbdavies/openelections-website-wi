@@ -8,8 +8,10 @@ The current approach, [deployed on my personal site](http://www.ndavies.org/open
 
 ## Next steps
 
-* Enable filters by year, month, election type, special, and common offices.
 * Post this mock-up to the openelections.github.io issue discussion.
 * Don't show download links for elections that don't have converted CSVs (eg. PDF source files).
+* Add X/clear icons for filters
+* Move Github link to the side? Add Github icon?
+* Try using a `select` element inside the dropdown, to allow range selecting
 * Add download links to results repo and differentiate them somehow.
 * Add a "download all" link for maximum chaos?
