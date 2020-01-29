@@ -30,7 +30,12 @@
                     Year
                   </button>
                   <div class="dropdown-menu">
-                    <a v-for="year in years" v-bind:key="year" class="dropdown-item" v-bind:id="'years-'+year" href='#' v-on:click="toggleYear(year)">{{ year }}</a>
+                    <div class="form-check dropdown-item" v-for="year in years" v-bind:key="year">
+                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'years-'+year" v-on:change="toggleYear(year)">
+                      <label class="form-check-label" v-bind:for="'years-'+year">
+                        {{ year }}
+                      </label>
+                    </div>
                   </div>
                 </div>
                 <div class='dropdown d-inline'>
@@ -38,7 +43,12 @@
                     Month
                   </button>
                   <div class="dropdown-menu">
-                    <a v-for="month in months" v-bind:key="month" class="dropdown-item" v-bind:id="'months-'+month" href='#' v-on:click="toggleMonth(month)">{{ month }}</a>
+                    <div class="form-check dropdown-item" v-for="month in months" v-bind:key="month">
+                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'months-'+month" v-on:change="toggleMonth(month)">
+                      <label class="form-check-label" v-bind:for="'months-'+month">
+                        {{ month }}
+                      </label>
+                    </div>
                   </div>
                 </div>
               </th>
@@ -48,7 +58,12 @@
                     Election Type
                   </button>
                   <div class="dropdown-menu">
-                    <a v-for="type in types" v-bind:key="type" class="dropdown-item" v-bind:id="'types-'+type" href='#' v-on:click="toggleType(type)">{{ type }}</a>
+                    <div class="form-check dropdown-item" v-for="type in types" v-bind:key="type">
+                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'types-'+type" v-on:change="toggleType(type)">
+                      <label class="form-check-label" v-bind:for="'types-'+type">
+                        {{ type }}
+                      </label>
+                    </div>
                   </div>
                 </div>
               </th>
@@ -58,7 +73,12 @@
                     Special?
                   </button>
                   <div class="dropdown-menu">
-                    <a v-for="boolean in special" v-bind:key="boolean" class="dropdown-item" v-bind:id="'special-'+boolean" href='#' v-on:click="toggleSpecial(boolean)">{{ boolean }}</a>
+                    <div class="form-check dropdown-item" v-for="boolean in special" v-bind:key="boolean">
+                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'special-'+boolean" v-on:change="toggleSpecial(boolean)">
+                      <label class="form-check-label" v-bind:for="'special-'+boolean">
+                        {{ boolean }}
+                      </label>
+                    </div>
                   </div>
                 </div>
               </th>
@@ -68,7 +88,12 @@
                     Offices
                   </button>
                   <div class="dropdown-menu">
-                    <a v-for="office in offices" v-bind:key="office" class="dropdown-item" v-bind:id="'offices-'+office" href='#' v-on:click="toggleOffice(office)">{{ office }}</a>
+                    <div class="form-check dropdown-item" v-for="office in offices" v-bind:key="office">
+                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'offices-'+office" v-on:change="toggleOffice(office)">
+                      <label class="form-check-label" v-bind:for="'offices-'+office">
+                        {{ office }}
+                      </label>
+                    </div>
                   </div>
                 </div>
               </th>

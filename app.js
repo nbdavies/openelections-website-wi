@@ -44,7 +44,6 @@ $(function() {
         app.toggleFilter(office, 'offices')
       },
       toggleFilter: function(value, filter) {
-        $('#'+filter+'-'+value).toggleClass('active')
         var index = app['selected_'+filter].indexOf(value)
         var selected = (index != -1)
         if (selected) {
