@@ -11,6 +11,7 @@ class Election {
     this.house = json.house
     this.prez = json.prez
     this.senate = json.senate
+    this.convertedData = true
   }
   offices() {
     return this.officeList().join(', ')

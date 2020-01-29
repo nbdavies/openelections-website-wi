@@ -25,9 +25,18 @@ $(function() {
           })
           app.elections = elections
           app.shownElections = elections
+          app.checkLinks()
         })
     },
     methods: {
+      checkLinks: function() {
+        this.elections.forEach(function(election){
+          $.ajax(election.fullPath(), { method: 'HEAD' })
+            .fail(function(){
+              election.convertedData = false
+            })
+        })
+      },
       toggleYear: function(year) {
         app.toggleFilter(year, 'years')
       },
