@@ -21,10 +21,10 @@
       </div>
       <div class="row">
         <table class="table col-md-12" id="election-list">
-          <thead>
-            <tr>
-              <!-- Checkbox? -->
-              <th>
+          <thead class='container'>
+            <tr class='row'>
+              <!-- TODO: Checkbox? -->
+              <th class='col-md-3'>
                 <div class='dropdown d-inline'>
                   <button type="button" class='btn btn-primary dropdown-toggle' id="yearDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Year
@@ -52,7 +52,7 @@
                   </div>
                 </div>
               </th>
-              <th>
+              <th class='col-md-3'>
                 <div class='dropdown d-inline'>
                   <button type="button" class='btn btn-primary dropdown-toggle' id="typeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Election Type
@@ -67,7 +67,7 @@
                   </div>
                 </div>
               </th>
-              <th>
+              <th class='col-md-3'>
                 <div class='dropdown d-inline'>
                   <button type="button" class='btn btn-primary dropdown-toggle' id="specialDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Special?
@@ -82,7 +82,7 @@
                   </div>
                 </div>
               </th>
-              <th>
+              <th class='col-md-3'>
                 <div class='dropdown d-inline'>
                   <button type="button" class='btn btn-primary dropdown-toggle' id="officeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Offices
@@ -99,16 +99,17 @@
               </th>
             </tr>
           </thead>
-          <tbody v-for="election in shownElections" v-bind:key="election.id">
-            <tr data-toggle="collapse" v-bind:data-target="'#election-' + election.id">
-              <td>{{ election.start_date }}</td>
-              <td>{{ election.race_type }}</td>
-              <td>{{ election.special }}</td>
-              <td>{{ election.offices() }}</td>
+          <tbody class='container' v-for="election in shownElections" v-bind:key="election.id">
+            <tr class='row' data-toggle="collapse" v-bind:data-target="'#election-' + election.id">
+              <td class='col-md-3'>{{ election.start_date }}</td>
+              <td class='col-md-3'>{{ election.race_type }}</td>
+              <td class='col-md-3'>{{ election.special }}</td>
+              <td class='col-md-3'>{{ election.offices() }}</td>
             </tr>
-            <tr>
-              <td colspan=4 class="p-0">
+            <tr class='row'>
+              <td colspan=4 class="p-0 col-md-12">
                 <div class="card-body collapse election" v-bind:id="'election-' + election.id" data-parent="#election-list" aria-expanded="false">
+                  <h5>{{ election.description() }}</h5>
                   <p>
                     <small>
                       <a v-bind:href="election.portal_link">View on {{ election.organizationName }}</a>
@@ -117,20 +118,25 @@
                   <strong>Source files:</strong>
                   <ul>
                     <li v-for="direct_link in election.direct_links">
-                      <a v-bind:href="direct_link">{{ direct_link}}</a>
+                      <a v-bind:href="direct_link">{{ new URL(direct_link).pathname }}</a>
                     </li>
                   </ul>
-                  <a class="btn btn-bd-download btn-primary converted-link" v-bind:href="election.fullPath()" v-on:click="election.download(event)" v-bind:class="{ disabled: !election.convertedData }">
-                    <!-- https://github.com/danklammer/bytesize-icons -->
-                    <svg class="i-download" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="1rem" height="1rem" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                      <path d="M9 22 C0 23 1 12 9 13 6 2 23 2 22 10 32 7 32 23 23 22 M11 26 L16 30 21 26 M16 16 L16 30" />
-                    </svg>
-                    <div class="spinner-border spinner-border-sm text-light d-none" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                    Converted CSV
-                  </a>
-                  <a class="d-none blob-ingester" href="#" v-bind:download="election.fileName()"></a>
+                  <div v-if="election.convertedData">
+                    <a class="btn btn-bd-download btn-primary converted-link" v-bind:href="election.fullPath()" v-on:click="election.download(event)">
+                      <!-- https://github.com/danklammer/bytesize-icons -->
+                      <svg class="i-download" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="1rem" height="1rem" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <path d="M9 22 C0 23 1 12 9 13 6 2 23 2 22 10 32 7 32 23 23 22 M11 26 L16 30 21 26 M16 16 L16 30" />
+                      </svg>
+                      <div class="spinner-border spinner-border-sm text-light d-none" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      Converted CSV
+                    </a>
+                    <a class="d-none blob-ingester" href="#" v-bind:download="election.fileName()"></a>
+                  </div>
+                  <div v-else>
+                    <button class='btn btn-danger disabled' disabled>No converted CSV available</button>
+                  </div>
                 </div>
               </td>
             </tr>

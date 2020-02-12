@@ -13,6 +13,13 @@ class Election {
     this.senate = json.senate
     this.convertedData = true
   }
+  description() {
+    var terms = [this.start_date]
+    if (this.special) { terms.push('special') }
+    terms.push(this.race_type)
+    terms.push('election')
+    return terms.join(' ')
+  }
   offices() {
     return this.officeList().join(', ')
   }
