@@ -28,7 +28,25 @@ $(function() {
           app.checkLinks()
         })
     },
+    mounted: function() {
+      this.mountPicker('years')
+      this.mountPicker('months')
+      this.mountPicker('types')
+      this.mountPicker('special')
+      this.mountPicker('offices')
+    },
     methods: {
+      mountPicker: function(id) {
+        $('#' + id).selectpicker({
+          actionsBox: true,
+          countSelectedText: function(count){ return id + " (" + count + ")" },
+          selectedTextFormat: 'count > 0',
+          noneSelectedText: id,
+          deselectAllText: 'reset',
+          selectAllText: 'all',
+          width: id.length + 'em'
+        })
+      },
       checkLinks: function() {
         this.elections.forEach(function(election){
           $.ajax(election.fullPath(), { method: 'HEAD' })
@@ -37,30 +55,25 @@ $(function() {
             })
         })
       },
-      toggleYear: function(year) {
-        app.toggleFilter(year, 'years')
-      },
-      toggleMonth: function(month) {
-        app.toggleFilter(month, 'months')
-      },
-      toggleType: function(type) {
-        app.toggleFilter(type, 'types')
-      },
-      toggleSpecial: function(boolean) {
-        app.toggleFilter(boolean, 'special')
-      },
-      toggleOffice: function(office) {
-        app.toggleFilter(office, 'offices')
-      },
-      toggleFilter: function(value, filter) {
-        var index = app['selected_'+filter].indexOf(value)
-        var selected = (index != -1)
-        if (selected) {
-          app['selected_'+filter].splice(index, 1)
-        } else {
-          app['selected_'+filter].push(value)
-        }
+      filterBy: function(id) {
+        var selections = $('#' + id).val()
+        app['selected_' + id] = selections
         app.filterElections()
+      },
+      toggleYear: function() {
+        app.filterBy('years')
+      },
+      toggleMonth: function() {
+        app.filterBy('months')
+      },
+      toggleType: function() {
+        app.filterBy('types')
+      },
+      toggleSpecial: function() {
+        app.filterBy('special')
+      },
+      toggleOffice: function() {
+        app.filterBy('offices')
       },
       filterElections: function() {
         var elections = []

@@ -7,95 +7,59 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <title>OpenElections Wisconsin</title>
   </head>
   <body>
     <div class="container" id="app">
       <!-- Content here -->
       <div class="row">
-        <h1>
+        <h1 class='col-md-9'>
           OpenElections Wisconsin
         </h1>
-        <a href="https://github.com/openelections/openelections-data-wi">View on GitHub</a>
+        <a href="https://github.com/openelections/openelections-data-wi" class='col-md-3 text-right'>
+          <svg id="i-github" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+            <path stroke-width="0" fill="currentColor" d="M32 0 C14 0 0 14 0 32 0 53 19 62 22 62 24 62 24 61 24 60 L24 55 C17 57 14 53 13 50 13 50 13 49 11 47 10 46 6 44 10 44 13 44 15 48 15 48 18 52 22 51 24 50 24 48 26 46 26 46 18 45 12 42 12 31 12 27 13 24 15 22 15 22 13 18 15 13 15 13 20 13 24 17 27 15 37 15 40 17 44 13 49 13 49 13 51 20 49 22 49 22 51 24 52 27 52 31 52 42 45 45 38 46 39 47 40 49 40 52 L40 60 C40 61 40 62 42 62 45 62 64 53 64 32 64 14 50 0 32 0 Z" />
+          </svg>
+          View on GitHub
+        </a>
       </div>
       <div class="row">
         <table class="table col-md-12" id="election-list">
           <thead class='container'>
             <tr class='row'>
-              <!-- TODO: Checkbox? -->
               <th class='col-md-3'>
-                <div class='dropdown d-inline'>
-                  <button type="button" class='btn btn-primary dropdown-toggle' id="yearDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Year
-                  </button>
-                  <div class="dropdown-menu">
-                    <div class="form-check dropdown-item" v-for="year in years" v-bind:key="year">
-                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'years-'+year" v-on:change="toggleYear(year)">
-                      <label class="form-check-label" v-bind:for="'years-'+year">
-                        {{ year }}
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class='dropdown d-inline'>
-                  <button type="button" class='btn btn-primary dropdown-toggle' id="monthDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Month
-                  </button>
-                  <div class="dropdown-menu">
-                    <div class="form-check dropdown-item" v-for="month in months" v-bind:key="month">
-                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'months-'+month" v-on:change="toggleMonth(month)">
-                      <label class="form-check-label" v-bind:for="'months-'+month">
-                        {{ month }}
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                <select id='years' multiple="multiple" v-on:change="toggleYear()">
+                  <option v-for="year in years" v-bind:value="year">
+                    {{ year }}
+                  </option>
+                </select>
+                <select id='months' multiple='multiple' v-on:change="toggleMonth()">
+                  <option v-for="month in months" v-bind:value="month">
+                    {{ month }}
+                  </option>
+                </select>
               </th>
               <th class='col-md-3'>
-                <div class='dropdown d-inline'>
-                  <button type="button" class='btn btn-primary dropdown-toggle' id="typeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Election Type
-                  </button>
-                  <div class="dropdown-menu">
-                    <div class="form-check dropdown-item" v-for="type in types" v-bind:key="type">
-                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'types-'+type" v-on:change="toggleType(type)">
-                      <label class="form-check-label" v-bind:for="'types-'+type">
-                        {{ type }}
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                <select id='types' multiple="multiple" v-on:change="toggleType()">
+                  <option v-for="type in types" v-bind:value="type">
+                    {{ type }}
+                  </option>
+                </select>
               </th>
               <th class='col-md-3'>
-                <div class='dropdown d-inline'>
-                  <button type="button" class='btn btn-primary dropdown-toggle' id="specialDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Special?
-                  </button>
-                  <div class="dropdown-menu">
-                    <div class="form-check dropdown-item" v-for="boolean in special" v-bind:key="boolean">
-                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'special-'+boolean" v-on:change="toggleSpecial(boolean)">
-                      <label class="form-check-label" v-bind:for="'special-'+boolean">
-                        {{ boolean }}
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                <select id='special' multiple="multiple" v-on:change="toggleSpecial()">
+                  <option v-for="boolean in special" v-bind:value="boolean">
+                    {{ boolean }}
+                  </option>
+                </select>
               </th>
               <th class='col-md-3'>
-                <div class='dropdown d-inline'>
-                  <button type="button" class='btn btn-primary dropdown-toggle' id="officeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Offices
-                  </button>
-                  <div class="dropdown-menu">
-                    <div class="form-check dropdown-item" v-for="office in offices" v-bind:key="office">
-                      <input class="form-check-input" type="checkbox" value="" v-bind:id="'offices-'+office" v-on:change="toggleOffice(office)">
-                      <label class="form-check-label" v-bind:for="'offices-'+office">
-                        {{ office }}
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                <select id='offices' multiple="multiple" v-on:change="toggleOffice()">
+                  <option v-for="office in offices" v-bind:value="office">
+                    {{ office }}
+                  </option>
+                </select>
               </th>
             </tr>
           </thead>
@@ -156,6 +120,7 @@
     
     <!-- production version, optimized for size and speed -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
     <script src="election.js"></script>
     <script src="app.js"></script>
   </body>
