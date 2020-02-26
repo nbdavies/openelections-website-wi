@@ -46,7 +46,7 @@ $(function() {
           noneSelectedText: id,
           deselectAllText: 'reset',
           selectAllText: 'all',
-          width: (id.length + 2) + 'em'
+          width: (id.length+2) + 'em'
         })
       },
       checkLinks: function() {
