@@ -39,12 +39,14 @@ $(function() {
       mountPicker: function(id) {
         $('#' + id).selectpicker({
           actionsBox: true,
-          countSelectedText: function(count){ return id + " (" + count + ")" },
-          selectedTextFormat: 'count > 0',
+          countSelectedText: function(count){ 
+            return id + " (" + count + ")" 
+          },
+          selectedTextFormat: 'count',
           noneSelectedText: id,
           deselectAllText: 'reset',
           selectAllText: 'all',
-          width: id.length + 'em'
+          width: (id.length + 2) + 'em'
         })
       },
       checkLinks: function() {
