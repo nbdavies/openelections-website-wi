@@ -28,7 +28,7 @@
         <table class="table col-md-12" id="election-list">
           <thead class='container'>
             <tr class='row'>
-              <th class='col-md-3'>
+              <th class='col-md-3 text-center'>
                 <select id='years' multiple="multiple" v-on:change="toggleYear()">
                   <option v-for="year in years" v-bind:value="year">
                     {{ year }}
@@ -40,35 +40,49 @@
                   </option>
                 </select>
               </th>
-              <th class='col-md-3'>
+              <th class='col-md-2 text-center'>
                 <select id='types' multiple="multiple" v-on:change="toggleType()">
                   <option v-for="type in types" v-bind:value="type">
                     {{ type }}
                   </option>
                 </select>
               </th>
-              <th class='col-md-3'>
+              <th class='col-md-2 text-center'>
                 <select id='special' multiple="multiple" v-on:change="toggleSpecial()">
                   <option v-for="boolean in special" v-bind:value="boolean">
                     {{ boolean }}
                   </option>
                 </select>
               </th>
-              <th class='col-md-3'>
+              <th class='col-md-3 text-center'>
                 <select id='offices' multiple="multiple" v-on:change="toggleOffice()">
                   <option v-for="office in offices" v-bind:value="office">
                     {{ office }}
                   </option>
                 </select>
               </th>
+              <th class='col-md-2 text-center'>CSV available?</th>
             </tr>
           </thead>
           <tbody class='container' v-for="election in shownElections" v-bind:key="election.id">
             <tr class='row' data-toggle="collapse" v-bind:data-target="'#election-' + election.id">
-              <td class='col-md-3'>{{ election.start_date }}</td>
-              <td class='col-md-3'>{{ election.race_type }}</td>
-              <td class='col-md-3'>{{ election.special }}</td>
-              <td class='col-md-3'>{{ election.offices() }}</td>
+              <td class='col-md-3 text-center'>{{ election.start_date }}</td>
+              <td class='col-md-2 text-center'>{{ election.race_type }}</td>
+              <td class='col-md-2 text-center'>{{ election.special }}</td>
+              <td class='col-md-3 text-center'>{{ election.offices() }}</td>
+              <td class='col-md-2 text-center'>
+                <div v-if="election.convertedData">
+                  <svg id="i-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M2 20 L12 28 30 4" />
+                  </svg>
+                </div>
+                <div v-else>
+                  <svg id="i-ban" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <circle cx="16" cy="16" r="14" />
+                    <path d="M6 6 L26 26" />
+                  </svg>
+                </div>
+              </td>
             </tr>
             <tr class='row'>
               <td colspan=4 class="p-0 col-md-12">
@@ -94,7 +108,8 @@
                       <div class="spinner-border spinner-border-sm text-light d-none" role="status">
                         <span class="sr-only">Loading...</span>
                       </div>
-                      Converted CSV
+                      Converted CSV<br>
+                      <small class="small">{{ election.fileName() }}</small>
                     </a>
                     <a class="d-none blob-ingester" href="#" v-bind:download="election.fileName()"></a>
                   </div>
